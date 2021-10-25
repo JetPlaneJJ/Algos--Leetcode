@@ -1,3 +1,4 @@
+package Coding_Questions;
 /* Magic Square and minimum cost function
 
     You will be given a 3x3 matrix s of integers in the inclusive range [1,9]. 
