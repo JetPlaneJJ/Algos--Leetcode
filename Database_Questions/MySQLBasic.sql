@@ -20,6 +20,7 @@
 --      Key-Value: least complicated NoSQL database. Just keys and their values.
 
 -- Examples of MySQL queries --------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------
 -- CREATE TABLES
 -- Create a unique table 'countries', where the columns are: (see below)
 -- decimal(M, D) where M = maximum # digits TOTAL and D = # of those digits to the right of decimal point
@@ -63,6 +64,7 @@ CREATE TABLE job_history(
         ON UPDATE SET NULL -- When rows in parent table(jobs) are updated.
 );
 
+-------------------------------------------------------------------------------------------------------------
 -- SIMPLE SELECTIONS
 -- Returns all company IDs from table "company" if they have an employee population > 10,000
 -- Order them by IDs ascending
@@ -78,6 +80,7 @@ JOIN Sales ON Employees.EmployeeId = SALES.EmployeeId
 JOIN Customers ON Customers.CustomerId = SALES.CustomerId
 WHERE EmployeeId = 1;
 
+-------------------------------------------------------------------------------------------------------------
 -- MORE JOINS --> Diagram: https://tinyurl.com/ya9tekw8
 -- Get the addresses (location_id, street_address, city, state_province, country_name) of all departments
 --      Given `locations` and `countries` tables, where `country_id column` in both.
@@ -102,3 +105,59 @@ JOIN departments d
 JOIN locations l
     ON (l.LOCATION_ID = d.LOCATION_ID)
 WHERE LOWER(l.CITY) = 'London';
+
+
+-------------------------------------------------------------------------------------------------------------
+-- Using SET variables and more complex queries
+SET @var_name = expr;
+
+-- Pivot the Occupation column in OCCUPATIONS so that each Name is sorted alphabetically and displayed 
+-- underneath its corresponding Occupation. The output column headers should be 
+-- Doctors, Professors, Singers, and Actors, respectively.
+-- The given OCCUPATIONS table is described as follows: Name, Occupation.
+-- Note: Print NULL when there are no more names corresponding to an occupation to make the columns even.
+SET @r1 = 0, @r2 = 0, @r3 = 0, @r4 = 0; -- Associate each person with a row number
+SET @o1 = 'Doctor', @o2 = 'Professor', @o3 = 'Singer', @o4 = 'Actor';
+
+SELECT MIN(DOCTORS), MIN(PROFESSORS), MIN(SINGERS), MIN(ACTORS)
+FROM (
+    SELECT 
+        CASE WHEN Occupation = @o1 THEN (@r1:=@r1+1) -- Move onto next row
+             WHEN Occupation = @o2 THEN (@r2:=@r2+1) -- elif Professor
+             WHEN Occupation = @o3 THEN (@r3:=@r3+1)
+             WHEN Occupation = @o4 THEN (@r4:=@r4+1) end as NUMROW,
+        CASE WHEN Occupation = @o1 THEN NAME end as DOCTORS,
+        CASE WHEN Occupation = @o2 THEN NAME end as PROFESSORS,
+        CASE WHEN Occupation = @o3 THEN NAME end as Singers,
+        CASE WHEN Occupation = @o4 THEN NAME end as Actors
+    FROM occupations
+    ORDER BY Name -- names sorted alphabetically
+) TEMPORARY_TABLE
+GROUP BY NUMROW;
+-- Example output for the above: (Aamina and Jules are Doctors, Ashley is the only Professor...etc)
+-- Aamina Ashley Christeen Ethan
+-- Jules NULL Jane Jennifer
+-- NULL NULL Kristeen Ben
+
+
+-- Query an alphabetically ordered list of all names in OCCUPATIONS, immediately followed by the 
+--      first letter of each profession  as a parenthetical (i.e.: enclosed in parentheses).
+-- Then, get the # of ocurrences of each occupation. Sort the occurrences in ascending order.
+SET @totalStr = 'There are a total of ';
+-- Part 1
+SELECT -- Gets the first character of OCCUPATION string
+    CONCAT(NAME, '(', SUBSTRING(OCCUPATION, 1, 1), ')') as NAME -- Note that SUBSTSR is 1 indexed, incl.
+FROM occupations
+ORDER BY NAME;
+-- Part 2
+SELECT CONCAT(@totalStr, COUNT(OCCUPATION), ' ', LOWER(OCCUPATION), 's.') AS NUMTOTAL 
+FROM occupations
+GROUP BY OCCUPATION
+ORDER BY NUMTOTAL;
+-- Example output
+-- Ashely(P)
+-- Christeen(P)
+-- ...
+-- There are a total of 2 doctors.
+-- There are a total of 5 singers.
+
