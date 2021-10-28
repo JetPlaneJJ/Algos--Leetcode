@@ -20,6 +20,7 @@ class ModifiedBinarySearch:
                 end = mid
         return nums[start]
 
+#--------------------------------------------------------------------------------------------------
     # Returns the index of a target value given a ROTATED and sorted array of unique numbers.
     # Returns -1 if not found.
     # ex: [4,5,6,7,0,1,2], target = 0. [4,5,6,1,2], target = 4. [3,4,1,2], target = 4.

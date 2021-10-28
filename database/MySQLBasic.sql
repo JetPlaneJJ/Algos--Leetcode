@@ -160,4 +160,3 @@ ORDER BY NUMTOTAL;
 -- ...
 -- There are a total of 2 doctors.
 -- There are a total of 5 singers.
-

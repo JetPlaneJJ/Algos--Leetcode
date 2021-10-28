@@ -25,6 +25,7 @@ class TwoPointer:
                 nums1[L] = nums1[leftEnd]
                 leftEnd -= 1
 
+#--------------------------------------------------------------------------------------------------
     # Returns the length of the longest substring w/out repeating characters.
     def lengthOfLongestSubstring(self, s: str) -> int:
         longest = 0
@@ -42,6 +43,7 @@ class TwoPointer:
                 end += 1
         return max(longest, len(string_sofar))
 
+#--------------------------------------------------------------------------------------------------
     # Returns True if there is a cycle in a given LinkedList.
     def hasCycle(ll): # Assume only singley linked and all nodes point to null/node
         if not ll or not ll.next: # the list ends somewhere / isn't just 1 node

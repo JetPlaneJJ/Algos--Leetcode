@@ -6,10 +6,10 @@ class Backtracking:
 # 4) Backtracking: use when "optimal solution", "search every possibility", recursion
     # N-Queens Puzzle: Given a NxN chessboard, place n queens on the board 
     # such that no 2 queens can attack each other.
-    def __init__(self) -> None:
+    def __init__(self):
         self.solutions = []
 
-    # Returns all distinct solutions, in any order.
+    # Naive/brute force solution. Returns all distinct solutions, in any order.
     # Solution for n = 4: [[".Q..","...Q","Q...","..Q."],["..Q.","Q...","...Q",".Q.."]]
     def solveNQueens(self, n: int) -> List[List[str]]:
         chessboard = []
@@ -90,12 +90,13 @@ class Backtracking:
                     colTopRight += 1
         return True
     
+#--------------------------------------------------------------------------------------------------
     # Better solution than above: use the slope formula (y+x, y-x) for both diagonals
     # Keep track of queens in the same column with an array `queens`, skip rows when
-    # jumping to the next one.
+    # jumping to the next one. O(N), traverses every column once.
     # xy_dif = diagonal top left to bottom right
     # queens = list of queens placed in spot (column number)
-    def solveNQueens(self, board_size):
+    def solveNQueensLinear(self, board_size):
         def DFS(queens, xy_dif, xy_sum): 
             row = len(queens)
             if row == board_size:

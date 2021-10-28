@@ -19,6 +19,7 @@ class SlidingWindows:
           end += 1
         return max_sum / k
 
+#--------------------------------------------------------------------------------------------------
     # Returns the minimum length subarray where the sum of subarray contents is 
     # >= given target. Return 0 if no such subarray exists.
     def minSubArrayLen(self, target: int, nums: List[int]) -> int:
@@ -38,6 +39,7 @@ class SlidingWindows:
             return 0
         return minLength
 
+#--------------------------------------------------------------------------------------------------
     # Finds the area with the most water given a set of coordinates representing height.
     # Container can't be slanted (shortest height of the two).
     def maxArea(self, height: List[int]) -> int:
