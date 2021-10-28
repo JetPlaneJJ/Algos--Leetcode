@@ -53,7 +53,8 @@ class TreeAndGraph:
                     self.visitedNodes.add(neighbor)
 
 #--------------------------------------------------------------------------------------------------
-    # Dijkstra's Algorithm. Assumes the nodes are named by int.
+    # Dijkstra's Algorithm. Assumes the nodes are named by int. Good for "what are all the
+    # shortest paths from one spot? How to get there fastest?"
     def dijkstra(self, graph, num_vertices: int, start_node: int) -> None:
         shortestCosts = [math.inf for i in range(0, num_vertices)] # best costs, start to node
         shortestCosts[start_node] = 0
@@ -87,3 +88,9 @@ class TreeAndGraph:
             return
         self.printBestPathFromStart(parents, parents[node]) # go all the way to beginning
         print(node, end="")
+
+#--------------------------------------------------------------------------------------------------
+    # A* Search: Dijkstra's but with heuristics. Heuristics = function that estimates distance
+    # from vertex to the end. Good for "what is the shortest path b/t A and Z"?
+    # Example heuristic would be the Distance Formula/Euclidean
+    # If you can only move in 4 directions, use Manhattan Distance
