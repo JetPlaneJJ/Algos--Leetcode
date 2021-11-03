@@ -8,6 +8,7 @@ class Backtracking:
     # such that no 2 queens can attack each other.
     def __init__(self):
         self.solutions = []
+        self.permute_counter = 0
 
     # Naive/brute force solution. Returns all distinct solutions, in any order.
     # Solution for n = 4: [[".Q..","...Q","Q...","..Q."],["..Q.","Q...","...Q",".Q.."]]
@@ -114,3 +115,30 @@ class Backtracking:
         result = [] 
         DFS([],[],[])
         return [ ["."*i + "Q" + "."*(board_size-i-1) for i in sol] for sol in result]
+
+#--------------------------------------------------------------------------------------------------
+    # Write a program to print all permutations of BLAH (like a string)
+    # A permutation also called an “arrangement number” or “order,” is a rearrangement of the 
+    # elements of an ordered list S into a one-to-one correspondence with S itself. 
+    # A string of length n has n! permutation. 
+    def permute(self, word: str):
+        self.find_all_permutes(word, 0)
+        print(self.permute_counter)
+
+    # Basic idea: fix 1 letter at a time until all letters are fixed. Then print out the fixed.
+    def find_all_permutes(self, word: str, fixed_letters: int):
+        if fixed_letters >= len(word) - 1: # base case: all letters are fixed
+            print(word)
+            self.permute_counter += 1
+        else:
+            # for every other character that isn't fixed, try a swap
+            for index in range(fixed_letters, len(word)):
+                new_word = word
+                if fixed_letters != index:
+                    start = word[0 : fixed_letters]
+                    j = word[index]
+                    middle = word[fixed_letters + 1 : index]
+                    i = word[fixed_letters]
+                    rest = word[index + 1:]
+                    new_word = start + j + middle + i + rest
+                self.find_all_permutes(new_word, fixed_letters + 1)
