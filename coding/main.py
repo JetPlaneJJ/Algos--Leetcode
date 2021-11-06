@@ -15,6 +15,10 @@
 
 # from TreeAndGraph import TreeAndGraph
 from Backtracker import Backtracking
+from other import singleNumberInThreesArray
+from other import singleNumber
+from other import twoSingleNumbers
+from other import XOR_test
 
 #--------------------------------------------------------------------------------------------------
 # Backtracking test Problem N Queens
@@ -62,3 +66,12 @@ from Backtracker import Backtracking
 # print("--------------------------------Permutations--------------------------------")
 # permute = Backtracking()
 # permute.permute("Andy")
+
+print("--------------------------------XOR trick--------------------------------")
+# print(singleNumber([1, 2, 2, 1, -7, 4, -7])) # 4
+# print(twoSingleNumbers([1, 1, 2, 8, 8, 10])) # (10, 2)
+# print(singleNumberInThreesArray([7, 7, 0, 7])) # 0
+# print(singleNumberInThreesArray([8, 4, 4, 4])) # 8
+print(singleNumberInThreesArray([9, 4, 1, 4, 9, 4, 9])) # 8
+XOR_test()
+
