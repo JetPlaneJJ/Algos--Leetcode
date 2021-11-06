@@ -59,6 +59,6 @@ from Backtracker import Backtracking
 # test.addEdge(4, 6, 3)
 # test.dijkstra(test.customGraph, 7, 0)
 
-print("--------------------------------Permutations--------------------------------")
-permute = Backtracking()
-permute.permute("Andy")
+# print("--------------------------------Permutations--------------------------------")
+# permute = Backtracking()
+# permute.permute("Andy")

@@ -7,12 +7,24 @@ from typing import List
 #       a) WHILE the current interval is NOT first and overlaps with the previous one, 
 #          merge it with the previous interval
 #       b) ELSE add current interval to output list of intervals.
-class TwoPointer:
+class Intervals:
 #--------------------------------------------------------------------------------------------------
-    # Given an array of time INTERVALS in any order, "MERGE all overlapping intervals into one" 
-    # and print the result, which should have only mutually exclusive intervals.
-    # Let the intervals be represented as pairs of integers for simplicity.
-    def mergeIntervals(times: List[int]) -> None:
+    # Given an array of intervals where intervals[i] = [starti, endi], 
+    # merge all overlapping intervals, and return an array of the non-overlapping intervals that 
+    # cover all the intervals in the input. Assume intervals.length >= 1, start <= end.
+    # Example Input: intervals = [[1,3],[2,6],[8,10],[15,18]]
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        # sort all intervals
+        intervals.sort(key= lambda interval: interval[0])
+        merged_intervals : List[List[int]] = []
         
-        ...
-    ...
+        for start, end in intervals:
+            if merged_intervals == []:
+                merged_intervals.append([start, end])
+            else:
+                if (start <= merged_intervals[-1][1]): # overlap
+                    merged_intervals[-1][1] = max(end, merged_intervals[-1][1])
+                else:
+                    merged_intervals.append([start, end])
+
+        return merged_intervals
