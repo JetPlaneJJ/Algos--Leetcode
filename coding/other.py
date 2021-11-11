@@ -1,7 +1,24 @@
+# The questions listed below are ordered by my opinion of easiest to hardest.
 from operator import xor
 from typing import List
 import math
 from functools import reduce
+
+# --------------------------------------------------------------------------------------------------
+# Given an integer array nums, return true if any value appears at least twice in the array, 
+# and return false if every element is distinct.
+def containsDuplicate(nums: List[int]) -> bool:
+        # map --> [key, value] = [number, occurrence] -> # O(n) time, O(n) extra space
+        # word_occurrences = {}
+        # for num in nums:
+        #     if (word_occurrences.get(num) is None):
+        #         word_occurrences[num] = 1
+        #     else:
+        #         return True
+        # return False
+    
+        # another one-liner solution: O(n) time for set to insert, O(n) space for set
+        return len(nums) != len(set(nums))
 
 # --------------------------------------------------------------------------------------------------
 # Merged intervals variation.
