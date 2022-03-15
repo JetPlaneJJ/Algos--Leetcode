@@ -1,0 +1,10 @@
+DocuSign
+1. Remove multiple occurrences of anagrams but keep the first seen in the array (ex: sam, mas, tea, asm => sam, tea)
+    - must be at least O(n) runtime
+    - Can use dictionary/map instead of extra array to save runtime -> O(1) insert and get
+2. Return true if 2 given strings form the same word where # = BACKSPACE and deletes the previous character
+    - Use a Stack for normal characters. Pop when # encountered
+    - Python has a .pop() for strings
+    - Ex: hh#elloy# and ###helll#o return True 
+3. Design a Monopoly-like board game and describe what classes, data structures you would use.
+

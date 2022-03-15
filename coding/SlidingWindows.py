@@ -2,10 +2,10 @@ from typing import List
 import math
 #--------------------------------------------------------------------------------------------------
 class SlidingWindows:
-# 1) Sliding Windows: When to use? Find a "contiguous subarray", maximum sum/average...
+# 1) Sliding Windows: When to use? Find a "contiguous subarray", max sum/avg...
 #    Is O(N) because the whole array is traversed only once (no elements repeated).
+
 # a) Fixed --> length is equal to X
-# b) Dynamic --> find the "minimal length subarray"
     def findMaxAverage(self, nums: List[int], k: int) -> float: # find max average subarr size k
         n = len(nums)
         max_sum, curr_sum = -math.inf, 0
@@ -20,8 +20,9 @@ class SlidingWindows:
         return max_sum / k
 
 #--------------------------------------------------------------------------------------------------
+# b) Dynamic --> find the "minimal length subarray"
     # Returns the minimum length subarray where the sum of subarray contents is 
-    # >= given target. Return 0 if no such subarray exists.
+    # >= given target. Return 0 if no such subarray exists. Assume nums contains only (+) numbers.
     def minSubArrayLen(self, target: int, nums: List[int]) -> int:
         length = len(nums)
         maxS, currS = 0, 0
@@ -41,7 +42,7 @@ class SlidingWindows:
 
 #--------------------------------------------------------------------------------------------------
     # Finds the area with the most water given a set of coordinates representing height.
-    # Container can't be slanted (shortest height of the two).
+    # Container can't be slanted (shortest height of the two). All heights are positive.
     def maxArea(self, height: List[int]) -> int:
         start, end, bestArea = 0, len(height) - 1, 0
         while (start < end and end >= 0):

@@ -25,5 +25,3 @@ class DynamicProgramming:
             best_max = max(best_max, curr_max)
             
         return best_max
-
-

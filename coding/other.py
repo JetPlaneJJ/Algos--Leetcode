@@ -21,22 +21,6 @@ def containsDuplicate(nums: List[int]) -> bool:
         return len(nums) != len(set(nums))
 
 # --------------------------------------------------------------------------------------------------
-# Merged intervals variation.
-# Given integers i,j,k, find the total sum from numbers i up to j, and back down to k inclusive.
-# Ex: getSequenceSum(0, 2, -1) = 0 + 1 + 2 + 1 + 0 + -1 = 3
-def getSequenceSum(i, j, k):
-    # total_sum = sum(range(i, j+1)) + sum(reversed(range(k, j))) # short/correct but not ideal...
-    # more ideal: if start to mid overlaps with mid to end, then use it again
-    total_sum = sum(range(i, j+1))  # add from start to mid inclusive
-    if k == i:
-        total_sum = ((total_sum - j) * 2) + j
-    elif k < i:
-        total_sum = ((total_sum - j) * 2) + j + sum(reversed(range(k, i)))
-    else:
-        total_sum += sum(reversed(range(k, j)))
-    return total_sum  # O(k - i)
-
-# --------------------------------------------------------------------------------------------------
 # Easy TwoP variation
 # Palindrome O(N) of numbers, no string conversion. Returns true if x is a palindrome.
 def isPalindrome(x: int) -> bool:
@@ -46,9 +30,34 @@ def isPalindrome(x: int) -> bool:
         return True
     num_digits = int(math.log10(x) + 1)
     for i in range(0, num_digits//2 + 1):  # compare start and end digits
-        if (x // 10**i) % 10 != (x // 10**(num_digits - 1 - i)) % 10:
+        if ((x // 10**i) % 10) != (x // 10**(num_digits - 1 - i)) % 10:
             return False
     return True # Solution is O(N) where N = number of digits
+
+# --------------------------------------------------------------------------------------------------
+# Complimentary Two Sum. You must find two numbers within an array that add up to target.
+# Must run in linear time and can use O(n) extra space.
+def twoSum(nums: List[int], target: int) -> List[int]:
+    seen_before = {}
+    
+    for index, value in enumerate(nums):
+        offset = target - value # find the compliment of current value to reach target sum
+        if offset in seen_before: # compliment seen before?
+            return [seen_before.get(offset), index]
+        else:
+            seen_before[value] = index
+
+# --------------------------------------------------------------------------------------------------
+# Ugly Numbers (Bin Search): number whose only prime factors are 2, 3, or 5.
+# Given a number n, print out the nth ugly number in an ordered list of ugly #s in ascending order.
+# Your solution MUST run in O(logN) time and use no more than O(n) extra space.
+# You may assume that 1 <= n <= 21474836647.
+def nthUglyNumber(n: int) -> int:
+    # Game Plan: split the possible numbers in half and count each side for how many 
+    # ugly numbers there are. Make a separate array so we know how many uglies there are on 1 side
+    # If there are more than n uglies on the left, search left. Otherwise, update middle point
+    # to be on the right and set final answer as that.
+    ...
 
 # --------------------------------------------------------------------------------------------------
 # 3SUM using a dictionary

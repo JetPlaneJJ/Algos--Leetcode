@@ -25,6 +25,18 @@ class TwoPointer:
                 nums1[L] = nums1[leftEnd]
                 leftEnd -= 1
 
+    # Cleaner version of the above:
+    def mergeCleaner(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+        while m > 0 and n > 0: # where nums1 size = m + n
+            if nums1[m-1] >= nums2[n-1]:
+                nums1[m+n-1] = nums1[m-1] # m + n - 1 = the back of nums1 to fill
+                m -= 1
+            else:
+                nums1[m+n-1] = nums2[n-1] 
+                n -= 1
+        if n > 0: # if nums2 isn't empty yet
+            nums1[:n] = nums2[:n]
+
 #--------------------------------------------------------------------------------------------------
     # Returns the length of the longest substring w/out repeating characters.
     def lengthOfLongestSubstring(self, s: str) -> int:
